@@ -1,0 +1,26 @@
+Create database LibraryManagementSystem;
+
+Create table 
+BOOK (book_id int not null auto_increment, title VARCHAR(100), price float(20), pub_id int not null, category_id int not null, PRIMARY KEY(book_id));
+
+Create table
+CATEGORY (category_id int not null auto_increment , name VARCHAR(50), PRIMARY key(category_id));
+
+Create table 
+PUBLISHER (pub_id int not null , name VARCHAR(50), address text(400), PRIMARY key(pub_id));
+
+Create table
+MEMBER (member_id int not null, name VARCHAR(30), address VARCHAR(400), join_date DATETIME, PRIMARY KEY(member_id));
+
+Create table
+BORROWING_BOOK (member_id int not null, book_id int not null, borrow_date DATETIME,
+due_date DATETIME, return_date DATETIME, PRIMARY KEY(member_id,book_id,borrow_date), FOREIGN KEY (member_id) REFERENCES MEMBER(member_id), FOREIGN KEY (book_id) REFERENCES BOOK(book_id))
+
+ALTER TABLE BOOK ADD FOREIGN KEY (category_id)
+REFERENCES category(category_id);
+
+ALTER TABLE BOOK ADD FOREIGN KEY (pub_id)
+REFERENCES PUBLISHER(pub_id);
+
+ALTER TABLE BORROWING_BOOK ADD FOREIGN KEY (member_id)
+REFERENCES MEMBER(member_id);
